@@ -1,40 +1,37 @@
-
 import gradio as gr
-from agents.backend_api import analyze_error
+from agents.tools import autonomous_debug
+import json
 
-def process_input(user_input):
-    """
-    Sends code/error input to backend API and returns AI suggestions.
-    """
-    try:
-        result = analyze_error(user_input)
-        return result
-    except Exception as e:
-        return f"Error processing input: {str(e)}"
 
-# Gradio Interface
+def run_debug(endpoint, method):
+    result = autonomous_debug(endpoint, method)
+
+    logs = "\n".join(result["logs"])
+
+    if result["ai_analysis"]:
+        ai_output = json.dumps(result["ai_analysis"], indent=2)
+    else:
+        ai_output = "No AI analysis needed (API succeeded)."
+
+    return logs, ai_output
+
+
 with gr.Blocks() as demo:
-    gr.Markdown(
-        """
-        # Auto Debug AI
-        Enter your code snippet or error message below and get AI suggestions for fixes.
-        """
-    )
-    
-    with gr.Row():
-        input_box = gr.Textbox(
-            lines=5,
-            placeholder="Paste your code or error here...",
-            label="Input"
-        )
-        output_box = gr.Textbox(
-            lines=10,
-            placeholder="Analysis result will appear here...",
-            label="Output"
-        )
-    
-    submit_btn = gr.Button("Analyze")
-    submit_btn.click(fn=process_input, inputs=input_box, outputs=output_box)
+    gr.Markdown("# 🚀 AutoDebug AI - Autonomous API Debugging Agent")
 
-if __name__ == "__main__":
-    demo.launch()
+    with gr.Row():
+        endpoint = gr.Textbox(label="API Endpoint", placeholder="https://api.example.com/users")
+        method = gr.Dropdown(["GET", "POST"], label="HTTP Method", value="GET")
+
+    debug_button = gr.Button("Debug API")
+
+    logs_output = gr.Textbox(label="Execution Logs", lines=10)
+    ai_output = gr.Textbox(label="AI Analysis Output", lines=20)
+
+    debug_button.click(
+        run_debug,
+        inputs=[endpoint, method],
+        outputs=[logs_output, ai_output]
+    )
+
+demo.launch()

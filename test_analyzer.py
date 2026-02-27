@@ -1,11 +1,14 @@
+from agents.analyzer import analyze_error
 
-from agents.api_analyzer import analyze_error
+error_data = {
+    "status_code": 401,
+    "error": "Unauthorized"
+}
 
 result = analyze_error(
-    endpoint="https://api.weather.com/v1/current?city=London",
-    method="GET",
-    error_message="Unauthorized",
-    status_code=401
+    "https://api.example.com/users",
+    "GET",
+    error_data
 )
 
 print(result)
