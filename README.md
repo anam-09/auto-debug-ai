@@ -1,88 +1,138 @@
-# 🤖 Auto Debug AI
+AutoDebug AI
+Autonomous API Debugging Agent powered by LLM Reasoning
+🧠 Problem
 
-Auto Debug AI is an intelligent debugging assistant designed to help developers quickly identify, understand, and resolve errors in code.  
-The project focuses on improving debugging efficiency and learning by providing clear explanations and suggestions for common issues.
+Debugging failing APIs is time-consuming.
 
-This repository follows proper **GitHub collaboration, branching, and version control practices**, making it suitable for academic, internship, and team-based development.
+Developers often:
 
----
+Manually inspect logs
 
-## 📌 Project Description
+Reproduce errors
 
-Debugging is often time-consuming and confusing, especially for beginners.  
-**Auto Debug AI** aims to simplify this process by:
-- Analyzing errors
-- Explaining the root cause
-- Suggesting possible fixes
-- Supporting collaborative development
+Guess root causes
 
-The project is fully implemented and maintained using Git best practices.
+Rewrite incorrect requests
 
----
+This slows down development and deployment.
 
-## 🎯 Key Features
+💡 Solution
 
-- Intelligent error analysis
-- Clear and beginner-friendly explanations
-- Modular and clean code structure
-- Team collaboration using Git branches
-- Python virtual environment support
-- Ready for academic and professional use
+AutoDebug AI is an autonomous debugging agent that:
 
----
+Sends API requests (GET / POST)
 
-## 🛠️ Technology Stack
+Detects failures (404, 401, 500, etc.)
 
-- **Programming Language:** Python  
-- **Version Control:** Git  
-- **Repository Hosting:** GitHub  
-- **Environment Management:** Python Virtual Environment (`myenv`)  
+Uses LLM reasoning to analyze the error
 
----
+Suggests fixes
 
-## 📁 Project Structure
-auto-debug-ai/
-│── src/ # Core source code
-│── utils/ # Utility/helper functions
-│── tests/ # Test cases
-│── myenv/ # Virtual environment (ignored in Git)
-│── README.md # Project documentation
-│── requirements.txt # Project dependencies
+Generates corrected Python code
 
+It transforms debugging from reactive → autonomous.
 
----
+🏗 How It Works
+User Input (Endpoint + Method)
+        ↓
+API Request Execution
+        ↓
+Error Detection
+        ↓
+LLM Error Analysis
+        ↓
+Structured JSON Response
+        ↓
+Fix Suggestion + Corrected Code
+⚙️ Tech Stack
 
-## ⚙️ Setup & Installation
+Python
 
-### 1️⃣ Clone the Repository
-```bash
+Gradio (UI)
+
+Requests
+
+OpenAI API
+
+GitHub Push Protection (Security best practices)
+
+🖥 Features
+
+🔍 Automatic API testing
+
+🤖 AI-powered root cause analysis
+
+🛠 Suggested fixes
+
+💻 Corrected code generation
+
+📜 Execution logs viewer
+
+🎨 Clean Gradio UI
+
+🚀 Installation
+1️⃣ Clone Repository
 git clone https://github.com/anam-09/auto-debug-ai.git
 cd auto-debug-ai
+2️⃣ Create Virtual Environment
 python -m venv myenv
-.\myenv\Scripts\Activate.ps1
+myenv\Scripts\activate
+3️⃣ Install Dependencies
 pip install -r requirements.txt
+4️⃣ Add OpenAI API Key
 
-Team Collaboration Workflow
+Create a .env file:
 
-Each contributor works on a separate branch
+OPENAI_API_KEY=your_api_key_here
 
-Direct pushes to main are avoided
+⚠️ Do NOT push this file to GitHub.
 
-All changes are merged using Pull Requests
+▶️ Run the Application
+python app.py
 
-Branch Naming Convention
+Open the Gradio link in your browser.
 
-feature-new-module
+🧪 Example Test Endpoints
 
-bugfix-error-handler
+Working:
 
-docs-update
+https://jsonplaceholder.typicode.com/posts/1
 
-Git Workflow Used
-git checkout main
-git pull
-git checkout -b feature-name
-git add .
-git commit -m "Meaningful commit message"
-git push origin feature-name
+Failing:
+
+https://jsonplaceholder.typicode.com/post
+📂 Project Structure
+auto-debug-ai/
+│
+├── agents/
+│   ├── analyzer.py
+│   ├── tools.py
+│   ├── api_analyzer.py
+│   └── backend_api.py
+│
+├── app.py
+├── requirements.txt
+├── README.md
+└── .gitignore
+🔐 Security
+
+Uses environment variables for API keys
+
+GitHub Push Protection enabled
+
+.env excluded from repository
+
+🔮 Future Improvements
+
+CI/CD integration
+
+Retry automation
+
+Multi-step reasoning
+
+Deployment monitoring integration
+
+Slack/Discord alerts
+
+Docker support
 
